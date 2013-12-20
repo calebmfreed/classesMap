@@ -116,6 +116,17 @@
 			name = "Class Objects";
 			sourceTree = "<group>";
 		};
+		361454DC18642D6500697863 /* TBXML */ = {
+			isa = PBXGroup;
+			children = (
+				362F63BE1859996A00ADA28F /* TBXML+HTTP.h */,
+				362F63BC1859995C00ADA28F /* TBXML+HTTP.m */,
+				362F63BB1859989000ADA28F /* TBXML.h */,
+				362F63B91859988400ADA28F /* TBXML.m */,
+			);
+			name = TBXML;
+			sourceTree = "<group>";
+		};
 		362F63781859969E00ADA28F = {
 			isa = PBXGroup;
 			children = (
@@ -150,10 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				3679B7C1185FB705001F439C /* OLD */,
-				362F63BE1859996A00ADA28F /* TBXML+HTTP.h */,
-				362F63BC1859995C00ADA28F /* TBXML+HTTP.m */,
-				362F63BB1859989000ADA28F /* TBXML.h */,
-				362F63B91859988400ADA28F /* TBXML.m */,
+				361454DC18642D6500697863 /* TBXML */,
 				362F63931859969E00ADA28F /* XLAppDelegate.h */,
 				362F63941859969E00ADA28F /* XLAppDelegate.m */,
 				362F63961859969E00ADA28F /* Main.storyboard */,
