@@ -167,8 +167,11 @@
     NSLog(@"Returned Course: %@", controller.selectedCourse);
     NSLog(@"Returned Dept: %@", controller.selectedDept);
     [self dismissViewControllerAnimated:YES completion:nil];
-    [_classes addObject:[NSString stringWithFormat:@"%@%@",controller.selectedDept,controller.selectedCourse]];
-    loaded=YES;
+    if([controller.selectedCrns count] != 0)
+    {
+        [_classes addObject:[NSString stringWithFormat:@"%@%@",controller.selectedDept,controller.selectedCourse]];
+        loaded=YES;
+    }
     [self.tableView reloadData];
     
 

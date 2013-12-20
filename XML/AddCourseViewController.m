@@ -80,7 +80,7 @@
 
             //THis line helps to get to the departments
             TBXMLElement *depts = root->firstChild->nextSibling->nextSibling->firstChild;
-            while (depts->nextSibling){
+            while (depts){
                 //This line gets the departments and puts them in the property array
                 [_dept addObject:[TBXML attributeValue:depts->firstAttribute->next]];
                 
@@ -130,7 +130,7 @@
             NSLog(@"classes:%@", [TBXML elementName:classes]);
             //Loads up classes with the numbers of the classes in the given department
             classes = classes->firstChild;
-            while (classes->nextSibling){
+            while (classes){
                 //This line gets the classes into the NSString classes
                 [_classes addObject:[TBXML attributeValue:classes->firstAttribute->next]];
                 classes=classes->nextSibling;
@@ -138,6 +138,8 @@
             //Set the class loaded BOOL and reload the picker component for it
             classloaded = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
+                [_picker selectRow:0 inComponent:1 animated:YES];
+
                 [self.picker reloadComponent:1];
             });
 
@@ -185,14 +187,16 @@
             
             //Loads up courses with the names
             crns = crns->firstChild;
-            while (crns->nextSibling){
+
+            while (crns){
                 //This line gets the classes into the NSString classes
                 //Adds the values to the CRNS and Sections arrays
                 [_crns addObject:[TBXML attributeValue:crns->firstAttribute->next]];
                 [_sections addObject: [TBXML textForElement:crns]];
-
+                NSLog(@"Text: %@", [TBXML textForElement:crns]);
                 crns=crns->nextSibling;
             }
+            
             //classloaded = YES;
             //Sets the sections loaded variable and reloads the tableview in the main thread.
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -239,7 +243,7 @@
     }
     else if(classloaded == YES && component == 1)
     {
-        return [_classes count];
+        return [_classes count]+1;
     }
     else{
         return 1;
@@ -254,9 +258,14 @@
         return [_dept objectAtIndex:row];
 
     }
+    //Want to put this at the top of the row. But needs work.
+    else if(component == 1 && row == 0)
+    {
+        return @"Select Course";
+    }
     else if(classloaded == YES && component == 1)
     {
-        return [_classes objectAtIndex:row];
+        return [_classes objectAtIndex:row-1];
     }
     else if (classloaded == NO && component == 1){
         return @"Select Dept";
@@ -278,13 +287,15 @@
         _selectedDept = [_dept objectAtIndex:row];
         [self getClasses:[_dept objectAtIndex:row]];
     }
-    else if(component == 1 && classloaded == YES)
+    else if(component == 1 && classloaded == YES && row != 0)
     {
-        [self getCourseSections: [_dept objectAtIndex:deptRow] course:[_classes objectAtIndex:row]];
-        _selectedCourse = [_classes objectAtIndex:row];
-        NSLog(@"pickerview comp1: %@", [_classes objectAtIndex:row]);
+        [self getCourseSections: [_dept objectAtIndex:deptRow] course:[_classes objectAtIndex:row-1]];
+        _selectedCourse = [_classes objectAtIndex:row-1];
+        NSLog(@"pickerview comp1: %@", [_classes objectAtIndex:row-1]);
     }
 }
+
+//************TABLEVIEW***************
 
 //Only one section in the results tableview
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
