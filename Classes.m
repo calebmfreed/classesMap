@@ -41,11 +41,9 @@
     //Loading stuff and activity indicator
     loaded = NO;
     loading.hidesWhenStopped = YES;
-    [loading startAnimating];
+    //[loading startAnimating];
     _dept = [[NSMutableArray alloc]init];
     _classes= [[NSMutableArray alloc] init];
-    //[self getClasses:@"ECE"];
-    //[self getDepartments];
     NSLog(@"View loaded");
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -81,89 +79,6 @@
     } while ((element = element->nextSibling));
 }
 
-- (void) getDepartments
-{
-    //XML Success block
-    TBXMLSuccessBlock successBlock = ^(TBXML *tbxmlDocument) {
-        // If TBXML found a root node, process element and iterate all children
-        if (tbxmlDocument.rootXMLElement)
-        {
-            TBXMLElement *root = tbxmlDocument.rootXMLElement;
-            //THis line helps to get to the departments
-            TBXMLElement *depts = root->firstChild->nextSibling->nextSibling->firstChild;
-            while (depts->nextSibling){
-                //This line gets the departments
-                [_dept addObject:[TBXML attributeValue:depts->firstAttribute->next]];
-
-                depts=depts->nextSibling;
-            }
-        
-        }
-        NSLog(@"%@", _dept);
-        
-        loaded = YES;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [loading stopAnimating];
-        });
-        NSLog(@"Done loading depts");
-    };
-    
-    // Create a failure block that gets called if something goes wrong
-    TBXMLFailureBlock failureBlock = ^(TBXML *tbxmlDocument, NSError * error) {
-        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
-    };
-    
-    // Initialize TBXML with the URL of an XML doc. TBXML asynchronously loads and parses the file.
-    //URL to get departments
-    //http://courses.illinois.edu/cisapp/explorer/schedule/2014/spring.xml
-    TBXML *tbxml = [[TBXML alloc] initWithURL:[NSURL URLWithString:@"http://courses.illinois.edu/cisapp/explorer/schedule/2014/spring.xml"]
-                                      success:successBlock
-                                      failure:failureBlock];
-}
-
-- (void) getClasses:(NSString *) department
-{
-    //XML Success block
-    TBXMLSuccessBlock successBlock = ^(TBXML *tbxmlDocument) {
-        // If TBXML found a root node, process element and iterate all children
-        if (tbxmlDocument.rootXMLElement)
-        {
-            //Doc Root
-            TBXMLElement *root = tbxmlDocument.rootXMLElement;
-            TBXMLElement *classes = root->firstChild->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->nextSibling->firstChild;
-            NSLog(@"classes:%@", [TBXML elementName:classes]);
-            //Loads up classes with the names
-            while (classes->nextSibling){
-                //This line gets the classes into the NSString classes
-                [_classes addObject:[TBXML attributeValue:classes->firstAttribute->next]];
-                classes=classes->nextSibling;
-            }
-        }
-        NSLog(@"classes prop: %@", _classes);
-        
-        loaded = YES;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            [loading stopAnimating];
-        });
-        
-        NSLog(@"Done getting classes");
-    };
-    
-    // Create a failure block that gets called if something goes wrong
-    TBXMLFailureBlock failureBlock = ^(TBXML *tbxmlDocument, NSError * error) {
-        NSLog(@"Error! %@ %@", [error localizedDescription], [error userInfo]);
-    };
-    
-    // Initialize TBXML with the URL of an XML doc. TBXML asynchronously loads and parses the file.
-    //URL to get departments
-    //http://courses.illinois.edu/cisapp/explorer/schedule/2014/spring.xml
-    TBXML *tbxml = [[TBXML alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://courses.illinois.edu/cisapp/explorer/schedule/2014/spring/%@.xml",department]]
-                                      success:successBlock
-                                      failure:failureBlock];
-}
-
 - (void)addButtonPressed{
     [self performSegueWithIdentifier:@"addClass" sender:nil];
 }
@@ -185,7 +100,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [_dept count];
+    return [_classes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -195,8 +110,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if(loaded == YES)
     {
-        cell.textLabel.text = [_dept objectAtIndex:indexPath.row];
-        NSLog(@"putting into cell:%@",[_dept objectAtIndex:indexPath.row]);
+        cell.textLabel.text = [_classes objectAtIndex:indexPath.row];
+        NSLog(@"putting into cell:%@",[_classes objectAtIndex:indexPath.row]);
 
     }
     // Configure the cell...
@@ -251,10 +166,12 @@
     NSLog(@"Returned CRNS: %@", controller.selectedCrns);
     NSLog(@"Returned Course: %@", controller.selectedCourse);
     NSLog(@"Returned Dept: %@", controller.selectedDept);
-
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [_classes addObject:[NSString stringWithFormat:@"%@%@",controller.selectedDept,controller.selectedCourse]];
+    loaded=YES;
+    [self.tableView reloadData];
     
 
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

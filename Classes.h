@@ -10,6 +10,8 @@
 #import "TBXML.h"
 #import "TBXML+HTTP.h"
 #import "AddCourseViewController.h"
+#import "ClassThings.h"
+#import "Class_details.h"
 
 @interface Classes : UITableViewController{
     BOOL loaded;

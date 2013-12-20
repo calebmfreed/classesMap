@@ -2,7 +2,7 @@
 //  ClassThings.h
 //  XML
 //
-//  Created by Caleb Freed on 12/19/13.
+//  Created by Caleb Freed on 12/20/13.
 //  Copyright (c) 2013 Caleb Freed. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSString * department;
 @property (nonatomic, retain) NSString * classNum;
+@property (nonatomic, retain) NSString * section;
 @property (nonatomic, retain) Class_details *details;
 
 @end

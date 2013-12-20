@@ -10,6 +10,8 @@
 		361454B51863CB3C00697863 /* ClassData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 361454B31863CB3C00697863 /* ClassData.xcdatamodeld */; };
 		361454D01863EAB300697863 /* ClassThings.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454CF1863EAB300697863 /* ClassThings.m */; };
 		361454D31863EAB400697863 /* Class_details.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454D21863EAB400697863 /* Class_details.m */; };
+		361454D818642CF600697863 /* Class_details.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454D718642CF600697863 /* Class_details.m */; };
+		361454DB18642CF600697863 /* ClassThings.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454DA18642CF600697863 /* ClassThings.m */; };
 		362AFAFA185EE60600861619 /* Classes.m in Sources */ = {isa = PBXBuildFile; fileRef = 362AFAF9185EE60600861619 /* Classes.m */; };
 		362AFAFD185EEE5B00861619 /* AddCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362AFAFC185EEE5B00861619 /* AddCourseViewController.m */; };
 		362F63851859969E00ADA28F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 362F63841859969E00ADA28F /* Foundation.framework */; };
@@ -46,6 +48,10 @@
 		361454CF1863EAB300697863 /* ClassThings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassThings.m; sourceTree = "<group>"; };
 		361454D11863EAB300697863 /* Class_details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Class_details.h; sourceTree = "<group>"; };
 		361454D21863EAB400697863 /* Class_details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Class_details.m; sourceTree = "<group>"; };
+		361454D618642CF600697863 /* Class_details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Class_details.h; sourceTree = "<group>"; };
+		361454D718642CF600697863 /* Class_details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Class_details.m; sourceTree = "<group>"; };
+		361454D918642CF600697863 /* ClassThings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassThings.h; sourceTree = "<group>"; };
+		361454DA18642CF600697863 /* ClassThings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassThings.m; sourceTree = "<group>"; };
 		362AFAF8185EE60600861619 /* Classes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Classes.h; path = ../Classes.h; sourceTree = "<group>"; };
 		362AFAF9185EE60600861619 /* Classes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Classes.m; path = ../Classes.m; sourceTree = "<group>"; };
 		362AFAFB185EEE5B00861619 /* AddCourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCourseViewController.h; sourceTree = "<group>"; };
@@ -154,6 +160,10 @@
 				362AFAFB185EEE5B00861619 /* AddCourseViewController.h */,
 				362AFAFC185EEE5B00861619 /* AddCourseViewController.m */,
 				361454B31863CB3C00697863 /* ClassData.xcdatamodeld */,
+				361454D918642CF600697863 /* ClassThings.h */,
+				361454DA18642CF600697863 /* ClassThings.m */,
+				361454D618642CF600697863 /* Class_details.h */,
+				361454D718642CF600697863 /* Class_details.m */,
 				362AFAF8185EE60600861619 /* Classes.h */,
 				362AFAF9185EE60600861619 /* Classes.m */,
 				361454D51863EB7C00697863 /* Class Objects */,
@@ -301,6 +311,7 @@
 			files = (
 				362F63951859969E00ADA28F /* XLAppDelegate.m in Sources */,
 				362F63BA1859988400ADA28F /* TBXML.m in Sources */,
+				361454D818642CF600697863 /* Class_details.m in Sources */,
 				361454D31863EAB400697863 /* Class_details.m in Sources */,
 				362AFAFD185EEE5B00861619 /* AddCourseViewController.m in Sources */,
 				362F63911859969E00ADA28F /* main.m in Sources */,
@@ -309,6 +320,7 @@
 				361454D01863EAB300697863 /* ClassThings.m in Sources */,
 				361454B51863CB3C00697863 /* ClassData.xcdatamodeld in Sources */,
 				362F639B1859969E00ADA28F /* XLViewController.m in Sources */,
+				361454DB18642CF600697863 /* ClassThings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
