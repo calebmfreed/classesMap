@@ -35,12 +35,12 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) NSMutableArray *dept;
 @property (strong, nonatomic) NSMutableArray *classes;
-@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
 @property (weak, nonatomic) IBOutlet UITableView *results;
 @property (strong, nonatomic) NSMutableArray *sections;
 @property (strong, nonatomic) NSMutableArray *crns;
 @property (strong, nonatomic) NSMutableArray *selectedCrns;
+@property (strong, nonatomic) NSMutableArray *selectedSections;
 @property (strong, nonatomic) NSString *selectedDept;
 @property (strong, nonatomic) NSString *selectedCourse;
 

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		361454B51863CB3C00697863 /* ClassData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 361454B31863CB3C00697863 /* ClassData.xcdatamodeld */; };
-		361454DF18642E2000697863 /* ClassThings.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454DE18642E2000697863 /* ClassThings.m */; };
-		361454E218642E2000697863 /* Class_details.m in Sources */ = {isa = PBXBuildFile; fileRef = 361454E118642E2000697863 /* Class_details.m */; };
 		362AFAFA185EE60600861619 /* Classes.m in Sources */ = {isa = PBXBuildFile; fileRef = 362AFAF9185EE60600861619 /* Classes.m */; };
 		362AFAFD185EEE5B00861619 /* AddCourseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 362AFAFC185EEE5B00861619 /* AddCourseViewController.m */; };
 		362F63851859969E00ADA28F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 362F63841859969E00ADA28F /* Foundation.framework */; };
@@ -28,6 +26,9 @@
 		362F63B01859969E00ADA28F /* XMLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 362F63AF1859969E00ADA28F /* XMLTests.m */; };
 		362F63BA1859988400ADA28F /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 362F63B91859988400ADA28F /* TBXML.m */; };
 		362F63BD1859995C00ADA28F /* TBXML+HTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 362F63BC1859995C00ADA28F /* TBXML+HTTP.m */; };
+		36A014F918663303006993BC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36A014F818663303006993BC /* CoreData.framework */; };
+		36A014FC1866458D006993BC /* ClassThings.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A014FB1866458D006993BC /* ClassThings.m */; };
+		36A014FF1866458E006993BC /* Class_details.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A014FE1866458E006993BC /* Class_details.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,10 +43,6 @@
 
 /* Begin PBXFileReference section */
 		361454B41863CB3C00697863 /* ClassData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ClassData.xcdatamodel; sourceTree = "<group>"; };
-		361454DD18642E2000697863 /* ClassThings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassThings.h; sourceTree = "<group>"; };
-		361454DE18642E2000697863 /* ClassThings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassThings.m; sourceTree = "<group>"; };
-		361454E018642E2000697863 /* Class_details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Class_details.h; sourceTree = "<group>"; };
-		361454E118642E2000697863 /* Class_details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Class_details.m; sourceTree = "<group>"; };
 		362AFAF8185EE60600861619 /* Classes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Classes.h; path = ../Classes.h; sourceTree = "<group>"; };
 		362AFAF9185EE60600861619 /* Classes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Classes.m; path = ../Classes.m; sourceTree = "<group>"; };
 		362AFAFB185EEE5B00861619 /* AddCourseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCourseViewController.h; sourceTree = "<group>"; };
@@ -73,6 +70,11 @@
 		362F63BB1859989000ADA28F /* TBXML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
 		362F63BC1859995C00ADA28F /* TBXML+HTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "TBXML+HTTP.m"; path = "../TBXML+HTTP.m"; sourceTree = "<group>"; };
 		362F63BE1859996A00ADA28F /* TBXML+HTTP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TBXML+HTTP.h"; sourceTree = "<group>"; };
+		36A014F818663303006993BC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		36A014FA1866458D006993BC /* ClassThings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassThings.h; path = ../ClassThings.h; sourceTree = "<group>"; };
+		36A014FB1866458D006993BC /* ClassThings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ClassThings.m; path = ../ClassThings.m; sourceTree = "<group>"; };
+		36A014FD1866458E006993BC /* Class_details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Class_details.h; path = ../Class_details.h; sourceTree = "<group>"; };
+		36A014FE1866458E006993BC /* Class_details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Class_details.m; path = ../Class_details.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A014F918663303006993BC /* CoreData.framework in Frameworks */,
 				362F63871859969E00ADA28F /* CoreGraphics.framework in Frameworks */,
 				362F63891859969E00ADA28F /* UIKit.framework in Frameworks */,
 				362F63851859969E00ADA28F /* Foundation.framework in Frameworks */,
@@ -102,10 +105,10 @@
 		361454D51863EB7C00697863 /* Class Objects */ = {
 			isa = PBXGroup;
 			children = (
-				361454E018642E2000697863 /* Class_details.h */,
-				361454E118642E2000697863 /* Class_details.m */,
-				361454DD18642E2000697863 /* ClassThings.h */,
-				361454DE18642E2000697863 /* ClassThings.m */,
+				36A014FD1866458E006993BC /* Class_details.h */,
+				36A014FE1866458E006993BC /* Class_details.m */,
+				36A014FA1866458D006993BC /* ClassThings.h */,
+				36A014FB1866458D006993BC /* ClassThings.m */,
 			);
 			name = "Class Objects";
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 		362F63831859969E00ADA28F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				36A014F818663303006993BC /* CoreData.framework */,
 				362F63841859969E00ADA28F /* Foundation.framework */,
 				362F63861859969E00ADA28F /* CoreGraphics.framework */,
 				362F63881859969E00ADA28F /* UIKit.framework */,
@@ -309,8 +313,8 @@
 			files = (
 				362F63951859969E00ADA28F /* XLAppDelegate.m in Sources */,
 				362F63BA1859988400ADA28F /* TBXML.m in Sources */,
-				361454DF18642E2000697863 /* ClassThings.m in Sources */,
-				361454E218642E2000697863 /* Class_details.m in Sources */,
+				36A014FC1866458D006993BC /* ClassThings.m in Sources */,
+				36A014FF1866458E006993BC /* Class_details.m in Sources */,
 				362AFAFD185EEE5B00861619 /* AddCourseViewController.m in Sources */,
 				362F63911859969E00ADA28F /* main.m in Sources */,
 				362F63BD1859995C00ADA28F /* TBXML+HTTP.m in Sources */,

@@ -19,6 +19,8 @@
 @property (strong, nonatomic) NSMutableArray * dept;
 @property (strong, nonatomic) NSMutableArray *classes;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
+@property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+
 
 
 @end

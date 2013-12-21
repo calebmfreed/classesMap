@@ -13,7 +13,6 @@
 @end
 
 @implementation AddCourseViewController
-@synthesize managedObjectContext;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -58,6 +57,7 @@
     _selectedCrns = [[NSMutableArray alloc] init];
     _selectedCourse = [[NSString alloc] init];
     _selectedDept = [[NSString alloc] init];
+    _selectedSections = [[NSMutableArray alloc] init];
 
     //Get the departments
     [self getDepartments];
@@ -279,6 +279,7 @@
 //If select a department, then load the classes. If selected class, then load the sections
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row   inComponent:(NSInteger)component
 {
+    //The 0 component is for dept, ECE, ANTH, etc
     if(component == 0)
     {
         sectionsloaded = NO;
@@ -287,6 +288,7 @@
         _selectedDept = [_dept objectAtIndex:row];
         [self getClasses:[_dept objectAtIndex:row]];
     }
+    //The 1 component is for the class, 101, 110, etc
     else if(component == 1 && classloaded == YES && row != 0)
     {
         [self getCourseSections: [_dept objectAtIndex:deptRow] course:[_classes objectAtIndex:row-1]];
@@ -350,16 +352,20 @@
 //IF selected, then add to the selected CRNS array to return to the called view controller.
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@", _crns);
+    NSLog(@"%@ %@", _crns, _sections);
     [_selectedCrns addObject:[_crns objectAtIndex:indexPath.row]];
-    NSLog(@"Didselect:%@", _selectedCrns);
+    [_selectedSections addObject:[_sections objectAtIndex:indexPath.row]];
+
+    NSLog(@"Didselect:%@ %@", _selectedCrns, _selectedSections);
 }
 //If deselected, remove from the array to return
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     [_selectedCrns removeObjectIdenticalTo:[_crns objectAtIndex:indexPath.row]];
-    NSLog(@"Selected CRNS after remove: %@", _selectedCrns);
+    [_selectedSections removeObjectIdenticalTo:[_sections objectAtIndex:indexPath.row]];
+
+    NSLog(@"Selected CRNS after remove: %@ %@", _selectedCrns, _selectedSections);
 }
 
 
