@@ -2,7 +2,7 @@
 //  ClassThings.m
 //  XML
 //
-//  Created by Caleb Freed on 12/21/13.
+//  Created by Caleb Freed on 12/28/13.
 //  Copyright (c) 2013 Caleb Freed. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 @implementation ClassThings
 
 @dynamic classNum;
+@dynamic crn;
 @dynamic department;
 @dynamic section;
-@dynamic crn;
 @dynamic details;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "XLAppDelegate.h"
 #import "ClassThings.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 @implementation XLAppDelegate
 //For Core data
@@ -18,7 +19,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    // Override point for customization after application launch.
+    // Override point for customization after aepplication launch.
+    [GMSServices provideAPIKey:@"AIzaSyCAEANqlFd8PRsE0Rw3JPmXcztg4DZDizg"];
+
+    
     return YES;
 }
 							

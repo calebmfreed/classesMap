@@ -6,6 +6,8 @@
         <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="instructorF" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="instructorL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lat" optional="YES" attributeType="String" defaultValueString="no" syncable="YES"/>
+        <attribute name="lon" optional="YES" attributeType="String" defaultValueString="no" syncable="YES"/>
         <attribute name="roomNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,7 +21,7 @@
         <relationship name="details" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Class_details" inverseName="info" inverseEntity="Class_details" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Class_details" positionX="-2081" positionY="-5020" width="128" height="28"/>
+        <element name="Class_details" positionX="-2081" positionY="-5020" width="128" height="208"/>
         <element name="ClassThings" positionX="-2466" positionY="-4945" width="128" height="118"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  Class_details.m
 //  XML
 //
-//  Created by Caleb Freed on 12/21/13.
+//  Created by Caleb Freed on 12/28/13.
 //  Copyright (c) 2013 Caleb Freed. All rights reserved.
 //
 
@@ -15,11 +15,13 @@
 @dynamic building;
 @dynamic days;
 @dynamic endTime;
+@dynamic instructorF;
 @dynamic instructorL;
 @dynamic roomNumber;
 @dynamic startTime;
 @dynamic type;
-@dynamic instructorF;
+@dynamic lat;
+@dynamic lon;
 @dynamic info;
 
 @end

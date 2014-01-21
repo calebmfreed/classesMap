@@ -12,6 +12,8 @@
 #import "AddCourseViewController.h"
 #import "ClassThings.h"
 #import "Class_details.h"
+#import "ClassView.h"
+#import "XLAppDelegate.h"
 
 @interface Classes : UITableViewController{
     BOOL loaded;
@@ -20,6 +22,9 @@
 @property (strong, nonatomic) NSMutableArray *classes;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loading;
 @property (nonatomic,strong) NSManagedObjectContext* managedObjectContext;
+@property (nonatomic, strong) NSString * lat;
+@property (nonatomic, strong) NSString * lon;
+
 
 
 

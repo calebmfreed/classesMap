@@ -7,6 +7,7 @@
 //
 
 #import "Classes.h"
+#import "AFNetworking.h"
 
 @interface Classes ()
 
@@ -38,6 +39,13 @@
                                   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                   target:self action:@selector(addButtonPressed)];
     self.navigationItem.leftBarButtonItem = addButton;
+    
+    //Adds edit button to delete subreddits
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+                                              initWithTitle:@"Edit"
+                                              style:self.editButtonItem.style
+                                              target:self
+                                              action:@selector(editButtonPressed)];
 
     //Loading stuff and activity indicator
     loaded = NO;
@@ -63,6 +71,19 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //for labs
+    NSString *labUrl = [NSString stringWithFormat:@"https://my.engr.illinois.edu/labtrack/util_data_json.asp?"];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+
+    [manager GET:labUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary * tempDict = (NSDictionary *)responseObject;
+        NSLog(@"Response: %lu", (unsigned long)[tempDict[@"data"] count]);
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 - (void) traverseElement:(TBXMLElement *)element {
@@ -91,11 +112,12 @@
         // Obtain next sibling element
     } while ((element = element->nextSibling));
 }
-
+- (void) editButtonPressed{
+    self.tableView.editing = !self.tableView.editing;
+}
 - (void)addButtonPressed{
     [self performSegueWithIdentifier:@"addClass" sender:nil];
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -123,13 +145,88 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     {
         ClassThings *things = [_classes objectAtIndex:indexPath.row];
-        NSLog(@"whats in here?:%@ %@", things.classNum, things.section);
-        cell.textLabel.text = [NSString stringWithFormat:@"%@%@: %@", things.department, things.classNum, things.section];
+        NSLog(@"whats in here?:%@ %@", things.details.type, things.section);
+        NSString * something;
+        
+//        This is 
+        if([things.details.type isEqualToString:@"LEC"])
+        {
+            something = @"Lecture";
+            cell.textLabel.textColor = [UIColor blueColor];
+        }
+        else if([things.details.type isEqualToString:@"LAB"])
+        {
+            something = @"Lab";
+            cell.textLabel.textColor = [UIColor redColor];
+
+        }
+        else if([things.details.type isEqualToString:@"LBD"])
+        {
+            something = @"Discussion";
+            cell.textLabel.textColor = [UIColor greenColor];
+
+        }
+        else{
+            something = @"UNKNOWN";
+        }
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"%@%@: %@ - %@", things.department, things.classNum, things.section, something];
 
     }
     // Configure the cell...
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"toClass" sender:self];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //    1
+        [tableView beginUpdates];
+        // Delete the row from the data source
+        
+        //[_classes removeObjectAtIndex:indexPath.row];
+        
+        //    2
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        //    3
+        [self.managedObjectContext deleteObject:[self.classes objectAtIndex:indexPath.row]];
+        NSError *error;
+        [_classes removeObjectAtIndex:indexPath.row];
+
+        
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+        }
+        //    4
+//        XLAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+//        self.classes =[appDelegate fetchNames];
+        //    5
+        [tableView endUpdates];
+        if([_classes count] == 0)
+        {
+            [self editButtonPressed];
+        }
+    }
+}
+#pragma mark Row reordering
+
+// Determine whether a given row is eligible for reordering or not.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+// Process the row move. This means updating the data model to correct the item indices.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath
+toIndexPath:(NSIndexPath *)toIndexPath {
+    ClassThings *item = [_classes objectAtIndex:fromIndexPath.row];
+    [_classes removeObject:item];
+    [_classes insertObject:item atIndex:toIndexPath.row];
 }
 
 /*
@@ -210,6 +307,14 @@
             TBXMLElement *meeting = [TBXML childElementNamed:@"meeting" parentElement:meetings];
             TBXMLElement *type = [TBXML childElementNamed:@"type" parentElement:meeting];
             TBXMLElement *start = type->nextSibling;
+            if([[TBXML textForElement:start] isEqualToString:@"ARRANGED"])
+            {
+                NSLog(@"SHIT");
+                NSLog(@"Special case: %@", [TBXML elementName:meeting->nextSibling]);
+                meeting = meeting->nextSibling;
+                type = [TBXML childElementNamed:@"type" parentElement:meeting];
+                start = type->nextSibling;
+            }
             TBXMLElement *end = start->nextSibling;
             TBXMLElement *days = end->nextSibling;
             TBXMLElement *room = days->nextSibling;
@@ -249,19 +354,40 @@
             NSLog(@"room:%@",cdetails.roomNumber);
             NSLog(@"building:%@",cdetails.building);
             
-            NSError *error;
-            if (![managedObjectContext save:&error]) {
-                NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-            }
-            [_classes addObject:classInfo];
+            NSString * str = cdetails.building;
+            str=[str stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            str = [str stringByAppendingString:@"+uiuc"];
+            NSLog(@"BuildingName:%@",str);
+            NSString *detailUrl = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/textsearch/json?key=AIzaSyCEP4uquUU9lj4m_VejblBg69eZgaTKneQ&query=%@&sensor=true", str];
+            AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+            //manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+            
+            [manager GET:detailUrl  parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSDictionary * tempDict = (NSDictionary *)responseObject;
+                NSLog(@"Response: %@", tempDict[@"results"][0]);
+                NSString * tempS = [NSString stringWithFormat:@"%@",tempDict[@"results"][0][@"geometry"][@"location"][@"lat"]];
+                cdetails.lat = tempS;
+                tempS = [NSString stringWithFormat:@"%@",tempDict[@"results"][0][@"geometry"][@"location"][@"lng"]];
+                cdetails.lon = tempS;
+                NSError *error;
+                if (![managedObjectContext save:&error]) {
+                    NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+                }
+                [_classes addObject:classInfo];
+                loaded=YES;
+                [self.tableView reloadData];
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Error: %@", error);
+            }];
+
 
         }
-        //Set the department as loaded and reload the components
-        dispatch_async(dispatch_get_main_queue(), ^{
-            //[loading stopAnimating];
-            loaded=YES;
-            [self.tableView reloadData];
-        });
+//        //Set the department as loaded and reload the components
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            //[loading stopAnimating];
+//            loaded=YES;
+//            [self.tableView reloadData];
+//        });
         NSLog(@"Done loading details");
     };
     
@@ -295,7 +421,16 @@
 {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    [[segue destinationViewController] setDelegate: self];
+    if([segue.identifier isEqualToString:@"toClass"])
+    {
+        //[[segue destinationViewController] setDelegate: self];
+        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+        [[segue destinationViewController] setPassedClass:[_classes objectAtIndex:selectedRowIndex.row]];
+    }
+    if([segue.identifier isEqualToString:@"addClass"])
+    {
+        [[segue destinationViewController] setDelegate: self];
+    }
     
 }
 
